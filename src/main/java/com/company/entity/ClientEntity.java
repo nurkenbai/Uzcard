@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "client")
 public class ClientEntity extends BestEntity {
     @Column
     private String name;
@@ -17,6 +18,8 @@ public class ClientEntity extends BestEntity {
     private String surname;
     @Column
     private String phone;
+    @Column(name = "profile_name")
+    private String profileName;
 
 
 }

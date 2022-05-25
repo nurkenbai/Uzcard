@@ -11,12 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SpringConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Authentication
+        // authentication
         auth.inMemoryAuthentication()
-                .withUser("admin").password("{bcrypt}$2a$10$cfIe02ix3qm5fohDvR/APeTrpyA50nYaS/fsm8hQLqU1BPQ15/w3W").roles("admin")
+                .withUser("admin").password("{noop}adminjon").roles("admin")
                 .and()
-                .withUser("profile").password("{bcrypt}profilejon").roles("profile");
-
+                .withUser("profile").password("{noop}profilejon").roles("profile")
+                .and()
+                .withUser("bankjon").password("{noop}bankov").roles("bank");
     }
 
     @Override

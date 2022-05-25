@@ -46,8 +46,8 @@ public class ClientService {
     }
 
     public Boolean chengStatus(StatusEnum status, String id) {
-        clientRepository.chengStatus(status, id);
-        return null;
+        int n = clientRepository.chengStatus(status, id);
+        return n > 0;
     }
 
     private ClientResponseDTO toDTO(ClientEntity entity) {
