@@ -31,13 +31,13 @@ public class ClientController {
     }
 
     @ApiOperation(value = "Get All", notes = "Method get All")
-    @GetMapping("/getBy/{id}")
+    @GetMapping("/getAll")
     private ResponseEntity<?> getAll() {
         return ResponseEntity.ok(clientService.getAll());
     }
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id Active")
-    @PutMapping("/chengStatus/{id}/block")
+    @PutMapping("/chengStatus/{id}/Active")
     private ResponseEntity<?> chengStatusActive(@PathVariable("id") String id) {
         return ResponseEntity.ok(clientService.chengStatus(StatusEnum.ACTIVE, id));
     }
@@ -49,7 +49,7 @@ public class ClientController {
     }
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id Not active")
-    @PutMapping("/chengStatus/{id}/block")
+    @PutMapping("/chengStatus/{id}/notactive")
     private ResponseEntity<?> chengStatusNotActive(@PathVariable("id") String id) {
         return ResponseEntity.ok(clientService.chengStatus(StatusEnum.NOT_ACTIVE, id));
     }
