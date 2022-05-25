@@ -1,0 +1,17 @@
+package com.company.repository;
+
+import com.company.entity.ClientEntity;
+import com.company.enums.StatusEnum;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import javax.transaction.Transactional;
+
+public interface ClientRepository extends JpaRepository<ClientEntity, String> {
+    @Transactional
+    @Modifying
+    @Query("update ClientEntity set status = :status where id = :id")
+    int chengStatus(@Param("status") StatusEnum status,@Param("id") String id);
+}
