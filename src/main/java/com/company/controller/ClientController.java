@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.request.ClientChangePhoneRequestDTO;
 import com.company.dto.request.ClientRequestDTO;
 import com.company.enums.StatusEnum;
 import com.company.service.ClientService;
@@ -36,21 +37,40 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getAll());
     }
 
+    @ApiOperation(value = "List pagination", notes = "Method pagination list")
+    @GetMapping("/adm/list")
+    public ResponseEntity<?> pagination(@RequestParam(value = "page", defaultValue = "0") int page,
+                                        @RequestParam(value = "size", defaultValue = "5") int size) {
+        return ResponseEntity.ok(clientService.pagination(page, size));
+    }
+
+    @ApiOperation(value = "Cheng changePhone", notes = "Method Cheng changePhone")
+    @PutMapping("/changePhone/{id}")
+    private ResponseEntity<?> changePhone(@RequestBody ClientChangePhoneRequestDTO requestDTO,@PathVariable("id") String id) {
+        return ResponseEntity.ok(clientService.changePhone(requestDTO,id));
+    }
+
+    @ApiOperation(value = "Cheng update", notes = "Method Cheng update")
+    @PutMapping("/update/{id}")
+    private ResponseEntity<?> update(@RequestBody ClientRequestDTO requestDTO,@PathVariable("id") String id) {
+        return ResponseEntity.ok(clientService.update(requestDTO,id));
+    }
+
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id Active")
-    @PutMapping("/chengStatus/{id}/Active")
+    @PutMapping("/changeStatus/{id}/Active")
     private ResponseEntity<?> chengStatusActive(@PathVariable("id") String id) {
-        return ResponseEntity.ok(clientService.chengStatus(StatusEnum.ACTIVE, id));
+        return ResponseEntity.ok(clientService.changeStatus(StatusEnum.ACTIVE, id));
     }
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id block")
-    @PutMapping("/chengStatus/{id}/block")
+    @PutMapping("/changeStatus/{id}/block")
     private ResponseEntity<?> chengStatusBlock(@PathVariable("id") String id) {
-        return ResponseEntity.ok(clientService.chengStatus(StatusEnum.BLOCK, id));
+        return ResponseEntity.ok(clientService.changeStatus(StatusEnum.BLOCK, id));
     }
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id Not active")
-    @PutMapping("/chengStatus/{id}/notactive")
+    @PutMapping("/changeStatus/{id}/notactive")
     private ResponseEntity<?> chengStatusNotActive(@PathVariable("id") String id) {
-        return ResponseEntity.ok(clientService.chengStatus(StatusEnum.NOT_ACTIVE, id));
+        return ResponseEntity.ok(clientService.changeStatus(StatusEnum.NOT_ACTIVE, id));
     }
 }

@@ -1,11 +1,11 @@
 package com.company.service;
 
+import com.company.config.AuthorizationConfig;
 import com.company.dto.request.CardRequestDTO;
 import com.company.dto.response.CardResponseDTO;
-import com.company.dto.response.ClientResponseDTO;
 import com.company.entity.CardEntity;
-import com.company.entity.ClientEntity;
 import com.company.enums.StatusEnum;
+import com.company.exeption.BalanceNotFoundException;
 import com.company.exeption.ItemNotFoundException;
 import com.company.repository.CardRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +26,12 @@ public class CardService {
 
 
     public CardResponseDTO create(CardRequestDTO requestDTO) {
+        String profileName = AuthorizationConfig.getCurrentProfileUserName();
         CardEntity entity = new CardEntity();
         entity.setNumber(getCardNumber());
         entity.setBalance(requestDTO.getBalance());
         entity.setClientId(entity.getClientId());
+        entity.setProfileName(profileName);
         if (requestDTO.getBalance() > 0) {
             entity.setStatus(StatusEnum.ACTIVE);
         } else {
@@ -44,6 +46,25 @@ public class CardService {
             throw new ItemNotFoundException("Client id not found");
         });
         return toDTO(entity);
+    }
+
+    public CardEntity get(String id) {
+        CardEntity entity = cardRepository.findById(id, StatusEnum.ACTIVE).orElseThrow(() -> {
+            log.warn("Client id not found");
+            throw new ItemNotFoundException("Client id not found");
+        });
+        return entity;
+    }
+
+    public CardEntity get(String id, Long amount) {
+        CardEntity entity = cardRepository.findById(id, StatusEnum.ACTIVE).orElseThrow(() -> {
+            log.warn("Client id not found");
+            throw new ItemNotFoundException("Client id not found");
+        });
+        if (entity.getBalance() > amount) {
+            throw new BalanceNotFoundException("Balance not Found");
+        }
+        return entity;
     }
 
     public CardResponseDTO getByCardNumber(String id) {
@@ -85,6 +106,16 @@ public class CardService {
         });
     }
 
+    public Boolean paymentMinus(Long amount, String cid) {
+        int n = cardRepository.paymentMinus(amount, cid);
+        return n > 0;
+    }
+
+    public Boolean paymentPlus(Long amount, String cid) {
+        int n = cardRepository.paymentPlus(amount, cid);
+        return n > 0;
+    }
+
     public Boolean assignPhone(String phone, String cid) {
         int n = cardRepository.assignPhone(phone, cid);
         return n > 0;
@@ -102,7 +133,7 @@ public class CardService {
         String cardNumber = "8600-" + a + "-" + b + "-" + c;
 
         Optional<CardEntity> optional = cardRepository.findByNumber(cardNumber);
-        if (optional.isEmpty()) {
+        if (optional.isPresent()) {
             getCardNumber();
         }
         return cardNumber;

@@ -17,6 +17,8 @@ public class ClientEntity extends BestEntity {
     @Column
     private String surname;
     @Column
+    private String middleName;
+    @Column
     private String phone;
     @Column(name = "profile_name")
     private String profileName;

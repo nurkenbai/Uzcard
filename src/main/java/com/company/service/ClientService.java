@@ -1,5 +1,7 @@
 package com.company.service;
 
+import com.company.config.AuthorizationConfig;
+import com.company.dto.request.ClientChangePhoneRequestDTO;
 import com.company.dto.request.ClientRequestDTO;
 import com.company.dto.response.ClientResponseDTO;
 import com.company.entity.ClientEntity;
@@ -8,6 +10,10 @@ import com.company.exeption.ItemNotFoundException;
 import com.company.repository.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -20,11 +26,13 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public ClientResponseDTO create(ClientRequestDTO requestDTO) {
+        String profileName = AuthorizationConfig.getCurrentProfileUserName();
         ClientEntity entity = new ClientEntity();
         entity.setName(requestDTO.getName());
         entity.setSurname(requestDTO.getSurname());
         entity.setPhone(requestDTO.getPhone());
         entity.setStatus(StatusEnum.ACTIVE);
+        entity.setProfileName(profileName);
         clientRepository.save(entity);
         return toDTO(entity);
     }
@@ -45,8 +53,33 @@ public class ClientService {
         return dtoList;
     }
 
-    public Boolean chengStatus(StatusEnum status, String id) {
-        int n = clientRepository.chengStatus(status, id);
+    public PageImpl<ClientResponseDTO> pagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+
+        Page<ClientEntity> entityPage = clientRepository.findAll(pageable);
+
+        List<ClientEntity> entityList = entityPage.getContent();
+        List<ClientResponseDTO> playListDTO = new LinkedList<>();
+        entityList.forEach(entity -> {
+            playListDTO.add(toDTO(entity));
+        });
+
+        return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
+    }
+
+    public Boolean changeStatus(StatusEnum status, String id) {
+        int n = clientRepository.changeStatus(status, id);
+        return n > 0;
+    }
+
+    public Boolean changePhone(ClientChangePhoneRequestDTO requestDTO, String cid) {
+        int n = clientRepository.changePhone(requestDTO.getPhone(), cid);
+        return n > 0;
+    }
+
+    public Boolean update(ClientRequestDTO requestDTO, String  cid) {
+        int n = clientRepository.update(requestDTO.getName(), requestDTO.getSurname(), requestDTO.getMiddleName(), cid);
         return n > 0;
     }
 

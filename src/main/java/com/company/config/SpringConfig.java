@@ -22,15 +22,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Authorization
-        http.authorizeRequests()
-                .antMatchers("/category/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("admin")
+        // authorization
+        http.authorizeRequests().antMatchers("/category/**")
+                .permitAll().antMatchers("/admin/**").hasAnyRole("admin")
                 .antMatchers("/profile/**").hasAnyRole("profile")
-                .anyRequest().authenticated()
-                .and().httpBasic();
-        http.csrf().disable().cors().disable();
-
-//                .and().formLogin();
+                .anyRequest().authenticated().and().httpBasic();
+        http.cors().disable().csrf().disable();
+        //.and().formLogin();
     }
 }
