@@ -30,6 +30,7 @@ public class ClientService {
         ClientEntity entity = new ClientEntity();
         entity.setName(requestDTO.getName());
         entity.setSurname(requestDTO.getSurname());
+        entity.setMiddleName(requestDTO.getMiddleName());
         entity.setPhone(requestDTO.getPhone());
         entity.setStatus(StatusEnum.ACTIVE);
         entity.setProfileName(profileName);
@@ -78,7 +79,7 @@ public class ClientService {
         return n > 0;
     }
 
-    public Boolean update(ClientRequestDTO requestDTO, String  cid) {
+    public Boolean update(ClientRequestDTO requestDTO, String cid) {
         int n = clientRepository.update(requestDTO.getName(), requestDTO.getSurname(), requestDTO.getMiddleName(), cid);
         return n > 0;
     }
@@ -88,8 +89,10 @@ public class ClientService {
         responseDTO.setId(entity.getId());
         responseDTO.setName(entity.getName());
         responseDTO.setSurname(entity.getSurname());
+        responseDTO.setMiddleName(entity.getMiddleName());
         responseDTO.setPhone(entity.getPhone());
         responseDTO.setStatus(entity.getStatus());
+        responseDTO.setCreatedDate(entity.getCreatedDate());
         return responseDTO;
     }
 

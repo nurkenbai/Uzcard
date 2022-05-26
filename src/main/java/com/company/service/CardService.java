@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -32,16 +33,19 @@ public class CardService {
         entity.setBalance(requestDTO.getBalance());
         entity.setClientId(entity.getClientId());
         entity.setProfileName(profileName);
+        LocalDate localDate = LocalDate.now();
+        entity.setExpiryDate(localDate.plusYears(3));
         if (requestDTO.getBalance() > 0) {
             entity.setStatus(StatusEnum.ACTIVE);
         } else {
             entity.setStatus(StatusEnum.BLOCK);
         }
+        cardRepository.save(entity);
         return toDTO(entity);
     }
 
     public CardResponseDTO getById(String id) {
-        CardEntity entity = cardRepository.findById(id, StatusEnum.ACTIVE).orElseThrow(() -> {
+        CardEntity entity = cardRepository.findByIdAndStatus(id, StatusEnum.ACTIVE).orElseThrow(() -> {
             log.warn("Client id not found");
             throw new ItemNotFoundException("Client id not found");
         });
@@ -49,7 +53,7 @@ public class CardService {
     }
 
     public CardEntity get(String id) {
-        CardEntity entity = cardRepository.findById(id, StatusEnum.ACTIVE).orElseThrow(() -> {
+        CardEntity entity = cardRepository.findByIdAndStatus(id, StatusEnum.ACTIVE).orElseThrow(() -> {
             log.warn("Client id not found");
             throw new ItemNotFoundException("Client id not found");
         });
@@ -57,7 +61,7 @@ public class CardService {
     }
 
     public CardEntity get(String id, Long amount) {
-        CardEntity entity = cardRepository.findById(id, StatusEnum.ACTIVE).orElseThrow(() -> {
+        CardEntity entity = cardRepository.findByIdAndStatus(id, StatusEnum.ACTIVE).orElseThrow(() -> {
             log.warn("Client id not found");
             throw new ItemNotFoundException("Client id not found");
         });
@@ -75,13 +79,6 @@ public class CardService {
         return toDTO(entity);
     }
 
-    public List<CardResponseDTO> getAll() {
-        List<CardResponseDTO> dtoList = new LinkedList<>();
-        cardRepository.findAll(StatusEnum.ACTIVE).stream().forEach(entity -> {
-            dtoList.add(toDTO(entity));
-        });
-        return dtoList;
-    }
 
     public List<CardResponseDTO> getByPhoneId(String phone) {
         List<CardResponseDTO> dtoList = new LinkedList<>();
@@ -145,6 +142,8 @@ public class CardService {
         responseDTO.setNumber(entity.getNumber());
         responseDTO.setCreatedDate(entity.getCreatedDate());
         responseDTO.setStatus(entity.getStatus());
+        responseDTO.setExpiryDate(entity.getExpiryDate());
+        responseDTO.setBalance(entity.getBalance());
         return responseDTO;
     }
 }

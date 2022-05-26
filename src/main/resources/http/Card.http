@@ -1,0 +1,40 @@
+### create
+POST http://localhost:8080/card/bank/create
+Authorization: Basic bank bankjon
+Content-Type: application/json
+
+{
+  "balance": 100,
+  "clientId":"8a8a828480fef62d0180fef9bafc0000"
+}
+
+### getBy
+GET http://localhost:8080/card/public/getBy/8a8a828480ff35210180ff354c820000
+
+### getByCardNumber
+GET http://localhost:8080/card/public/getByCardNumber/8600-8905-6521-4797
+
+### getByClientId
+GET http://localhost:8080/card/public/getByClientId/8a8a828480fef62d0180fef9bafc0000
+
+### getByPhoneId
+GET http://localhost:8080/card/getByPhoneId/{{id}}
+
+### getBalance
+GET http://localhost:8080/card/public/getBalance/8600-8905-6521-4797
+
+### chengStatus
+PUT http://localhost:8080/card/bank/chengStatus/8a8a828480ff35210180ff354c820000/Active
+Authorization: Basic bank bankjon
+
+### assignPhone
+PUT http://localhost:8080/card/bank/assignPhone/{{id}}
+Authorization: Basic bank bankjon
+
+### chengStatus
+PUT http://localhost:8080/card/bank/chengStatus/8a8a828480ff35210180ff354c820000/block
+Authorization: Basic bank bankjon
+
+### chengStatus
+PUT http://localhost:8080/card/bank/chengStatus/8a8a828480ff35210180ff354c820000/notactive
+Authorization: Basic bank bankjon

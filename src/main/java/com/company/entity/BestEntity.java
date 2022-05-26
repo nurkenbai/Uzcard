@@ -20,8 +20,7 @@ public class BestEntity {
     protected String id;
 
     @Column(name = "created_date")
-    @CreationTimestamp
-    protected LocalDateTime createdDate;
+    protected LocalDateTime createdDate = LocalDateTime.now();
     @Column
     @Enumerated(EnumType.STRING)
     protected StatusEnum status;

@@ -9,24 +9,27 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Api(tags = "Card")
 @RestController
-@RequestMapping("/card")
+@RequestMapping("/v1/card")
 public class CardController {
     @Autowired
     private CardService cardService;
 
     @ApiOperation(value = "Create ", notes = "Method Create Card")
-    @PostMapping("/create")
+    @PreAuthorize("hasRole('BANK')")
+    @PostMapping("")
     public ResponseEntity<?> create(@RequestBody CardRequestDTO requestDTO) {
         return ResponseEntity.ok(cardService.create(requestDTO));
     }
 
     @ApiOperation(value = "Get by id", notes = "Method get By id")
-    @GetMapping("/getBy/{id}")
+    @PreAuthorize("hasRole('BANK')")
+    @GetMapping("/{id}")
     private ResponseEntity<?> getById(@PathVariable("id") String id) {
         return ResponseEntity.ok(cardService.getById(id));
     }
@@ -55,31 +58,31 @@ public class CardController {
         return ResponseEntity.ok(cardService.getBalance(number));
     }
 
-    @ApiOperation(value = "Get All", notes = "Method get All")
-    @GetMapping("/getAll")
-    private ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(cardService.getAll());
-    }
+
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id Active")
+    @PreAuthorize("hasRole('BANK')")
     @PutMapping("/chengStatus/{id}/Active")
     private ResponseEntity<?> chengStatusActive(@PathVariable("id") String id) {
         return ResponseEntity.ok(cardService.chengStatus(StatusEnum.ACTIVE, id));
     }
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id Active")
-    @PutMapping("/assignPhone/{id}/Active")
+    @PreAuthorize("hasRole('BANK')")
+    @PutMapping("/assignPhone/{id}")
     private ResponseEntity<?> assignPhone(@PathVariable("id") String id, @RequestBody CardAssignRequestDTO requestDTO) {
         return ResponseEntity.ok(cardService.assignPhone(requestDTO.getPhone(), id));
     }
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id block")
+    @PreAuthorize("hasRole('BANK')")
     @PutMapping("/chengStatus/{id}/block")
     private ResponseEntity<?> chengStatusBlock(@PathVariable("id") String id) {
         return ResponseEntity.ok(cardService.chengStatus(StatusEnum.BLOCK, id));
     }
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id Not active")
+    @PreAuthorize("hasRole('BANK')")
     @PutMapping("/chengStatus/{id}/notactive")
     private ResponseEntity<?> chengStatusNotActive(@PathVariable("id") String id) {
         return ResponseEntity.ok(cardService.chengStatus(StatusEnum.NOT_ACTIVE, id));

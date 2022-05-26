@@ -14,12 +14,14 @@ import java.util.Optional;
 
 public interface CardRepository extends JpaRepository<CardEntity, String> {
     Optional<CardEntity> findByNumber(String number);
+    @Transactional
+    @Modifying
+    @Query("update CardEntity set status = :status where id = :cid")
+    int chengStatus(@Param("status") StatusEnum status,@Param("cid") String id);
 
-    int chengStatus(StatusEnum status, String id);
+    Optional<CardEntity> findByIdAndStatus(String id, StatusEnum active);
 
-    Optional<CardEntity> findById(String id, StatusEnum active);
 
-    List<CardEntity> findAll(StatusEnum active);
 
     List<CardEntity> findByClientIdAndStatus(String cid, StatusEnum active);
 

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,4 +27,6 @@ public class CardEntity extends BestEntity {
 
     @Column(name = "profile_name")
     private String profileName;
+    @Column(name = "expiry_date")
+    LocalDate expiryDate;
 }
