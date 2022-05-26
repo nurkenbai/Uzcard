@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.dto.request.CardAssignRequestDTO;
 import com.company.dto.request.CardRequestDTO;
 import com.company.enums.StatusEnum;
 import com.company.service.CardService;
@@ -20,13 +21,38 @@ public class CardController {
 
     @ApiOperation(value = "Create ", notes = "Method Create Card")
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody CardRequestDTO requestDTO){
+    public ResponseEntity<?> create(@RequestBody CardRequestDTO requestDTO) {
         return ResponseEntity.ok(cardService.create(requestDTO));
     }
+
     @ApiOperation(value = "Get by id", notes = "Method get By id")
     @GetMapping("/getBy/{id}")
     private ResponseEntity<?> getById(@PathVariable("id") String id) {
         return ResponseEntity.ok(cardService.getById(id));
+    }
+
+    @ApiOperation(value = "Get by Card number", notes = "Method get By Card number")
+    @GetMapping("/getByCardNumber/{id}")
+    private ResponseEntity<?> getByCardNumber(@PathVariable("id") String id) {
+        return ResponseEntity.ok(cardService.getByCardNumber(id));
+    }
+
+    @ApiOperation(value = "Get by Client Id", notes = "Method get By Client Id")
+    @GetMapping("/getByClientId/{id}")
+    private ResponseEntity<?> getByClientId(@PathVariable("id") String id) {
+        return ResponseEntity.ok(cardService.getByClientId(id));
+    }
+
+    @ApiOperation(value = "Get by Phone Id", notes = "Method get By Phone Id")
+    @GetMapping("/getByPhoneId/{id}")
+    private ResponseEntity<?> getByPhoneId(@PathVariable("id") String id) {
+        return ResponseEntity.ok(cardService.getByPhoneId(id));
+    }
+
+    @ApiOperation(value = "Get by Card number Balance", notes = "Method get By Card number Balance")
+    @GetMapping("/getBalance/{number}")
+    private ResponseEntity<?> getBalance(@PathVariable("number") String number) {
+        return ResponseEntity.ok(cardService.getBalance(number));
     }
 
     @ApiOperation(value = "Get All", notes = "Method get All")
@@ -39,6 +65,12 @@ public class CardController {
     @PutMapping("/chengStatus/{id}/Active")
     private ResponseEntity<?> chengStatusActive(@PathVariable("id") String id) {
         return ResponseEntity.ok(cardService.chengStatus(StatusEnum.ACTIVE, id));
+    }
+
+    @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id Active")
+    @PutMapping("/assignPhone/{id}/Active")
+    private ResponseEntity<?> assignPhone(@PathVariable("id") String id, @RequestBody CardAssignRequestDTO requestDTO) {
+        return ResponseEntity.ok(cardService.assignPhone(requestDTO.getPhone(), id));
     }
 
     @ApiOperation(value = "Cheng Status", notes = "Method Cheng Status by id block")

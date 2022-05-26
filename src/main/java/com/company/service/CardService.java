@@ -32,13 +32,14 @@ public class CardService {
         entity.setClientId(entity.getClientId());
         if (requestDTO.getBalance() > 0) {
             entity.setStatus(StatusEnum.ACTIVE);
-        }else {
+        } else {
             entity.setStatus(StatusEnum.BLOCK);
         }
         return toDTO(entity);
     }
+
     public CardResponseDTO getById(String id) {
-        CardEntity entity = cardRepository.findById(id,StatusEnum.ACTIVE).orElseThrow(() -> {
+        CardEntity entity = cardRepository.findById(id, StatusEnum.ACTIVE).orElseThrow(() -> {
             log.warn("Client id not found");
             throw new ItemNotFoundException("Client id not found");
         });
@@ -61,9 +62,37 @@ public class CardService {
         return dtoList;
     }
 
+    public List<CardResponseDTO> getByPhoneId(String phone) {
+        List<CardResponseDTO> dtoList = new LinkedList<>();
+        cardRepository.findByPhoneAndStatus(phone, StatusEnum.ACTIVE).stream().forEach(entity -> {
+            dtoList.add(toDTO(entity));
+        });
+        return dtoList;
+    }
+
+    public List<CardResponseDTO> getByClientId(String cid) {
+        List<CardResponseDTO> dtoList = new LinkedList<>();
+        cardRepository.findByClientIdAndStatus(cid, StatusEnum.ACTIVE).stream().forEach(entity -> {
+            dtoList.add(toDTO(entity));
+        });
+        return dtoList;
+    }
+
+    public Long getBalance(String number) {
+        return cardRepository.getBalance(number).orElseThrow(() -> {
+            log.warn("Card number not found");
+            throw new ItemNotFoundException("Card number not found");
+        });
+    }
+
+    public Boolean assignPhone(String phone, String cid) {
+        int n = cardRepository.assignPhone(phone, cid);
+        return n > 0;
+    }
+
     public Boolean chengStatus(StatusEnum status, String id) {
         int n = cardRepository.chengStatus(status, id);
-        return n>0;
+        return n > 0;
     }
 
     private String getCardNumber() {
