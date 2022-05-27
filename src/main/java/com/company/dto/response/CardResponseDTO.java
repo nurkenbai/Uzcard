@@ -16,5 +16,6 @@ public class CardResponseDTO extends CardRequestDTO {
     private LocalDateTime createdDate;
     private StatusEnum status;
     private LocalDate expiryDate;
+    private ClientResponseDTO client;
 
 }

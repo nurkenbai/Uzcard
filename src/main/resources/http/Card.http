@@ -21,7 +21,7 @@ GET http://localhost:8080/card/public/getByClientId/8a8a828480fef62d0180fef9bafc
 GET http://localhost:8080/card/getByPhoneId/{{id}}
 
 ### getBalance
-GET http://localhost:8080/card/public/getBalance/8600-8905-6521-4797
+GET http://localhost:8080/v1/card/getBalance/8600-8905-6521-4797
 
 ### chengStatus
 PUT http://localhost:8080/card/bank/chengStatus/8a8a828480ff35210180ff354c820000/Active

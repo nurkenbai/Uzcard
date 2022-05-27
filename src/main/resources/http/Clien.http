@@ -1,13 +1,13 @@
 ### create
-POST http://localhost:8080/client/bank/create
+POST http://localhost:8080/v1/client
 Authorization: Basic bank bankjon
 Content-Type: application/json
 
 {
-  "name": "Val",
-  "surname":"Valov",
-  "middleName": "Valvich",
-  "phone":"+998999632350"
+  "name": "Toshmat",
+  "surname":"Toshmatov",
+  "middleName": "Toshmatvich",
+  "phone":"+998999632355"
 }
 ### get by id
 GET http://localhost:8080/client/admin/getBy/8a8a828480fef62d0180fef9bafc0000
