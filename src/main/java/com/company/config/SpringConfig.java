@@ -6,10 +6,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
             "/v2/api-docs",
@@ -37,12 +36,12 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // authorization
-        http.authorizeRequests().antMatchers("/post/**")
-                .permitAll().antMatchers("/client/bank/**").hasAnyRole("BANK")
+        http.authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/client/bank/**").hasAnyRole("BANK")
                 .antMatchers("/client/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/card/public/**").permitAll()
                 .antMatchers("/card/bank/**").hasAnyRole("BANK")
-                .antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated().and().httpBasic();
         http.cors().disable().csrf().disable();
         //.and().formLogin();

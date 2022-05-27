@@ -5,7 +5,7 @@ import com.company.dto.request.CardRequestDTO;
 import com.company.dto.response.CardResponseDTO;
 import com.company.entity.CardEntity;
 import com.company.enums.StatusEnum;
-import com.company.exeption.BalanceNotFoundException;
+import com.company.exeption.InsufficientFundsException;
 import com.company.exeption.ItemNotFoundException;
 import com.company.repository.CardRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class CardService {
         CardEntity entity = new CardEntity();
         entity.setNumber(getCardNumber());
         entity.setBalance(requestDTO.getBalance());
-        entity.setClientId(entity.getClientId());
+        entity.setClientId(requestDTO.getClientId());
         entity.setProfileName(profileName);
         LocalDate localDate = LocalDate.now();
         entity.setExpiryDate(localDate.plusYears(3));
@@ -65,8 +65,8 @@ public class CardService {
             log.warn("Client id not found");
             throw new ItemNotFoundException("Client id not found");
         });
-        if (entity.getBalance() > amount) {
-            throw new BalanceNotFoundException("Balance not Found");
+        if (entity.getBalance() < amount) {
+            throw new InsufficientFundsException("Balance not Found");
         }
         return entity;
     }

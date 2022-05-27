@@ -1,34 +1,34 @@
 ### create
-POST http://localhost:8080/card/bank/create
+POST http://localhost:8080/v1/card
 Authorization: Basic bank bankjon
 Content-Type: application/json
 
 {
-  "balance": 100,
-  "clientId":"8a8a828480fef62d0180fef9bafc0000"
+  "balance": 500,
+  "clientId":"8a8a81d68103ec11018103ec4be90000"
 }
 
 ### getBy
-GET http://localhost:8080/card/public/getBy/8a8a828480ff35210180ff354c820000
+GET http://localhost:8080/v1/card/8a8a81d68103ec11018103ecc7550001
 
 ### getByCardNumber
-GET http://localhost:8080/card/public/getByCardNumber/8600-8905-6521-4797
+GET http://localhost:8080/v1/card/getByCardNumber/8600-8905-6521-4797
 
 ### getByClientId
-GET http://localhost:8080/card/public/getByClientId/8a8a828480fef62d0180fef9bafc0000
+GET http://localhost:8080/v1/card/getByClientId/8a8a828480fef62d0180fef9bafc0000
 
 ### getByPhoneId
-GET http://localhost:8080/card/getByPhoneId/{{id}}
+GET http://localhost:8080/v1/card/getByPhoneId/{{id}}
 
 ### getBalance
 GET http://localhost:8080/v1/card/getBalance/8600-8905-6521-4797
 
 ### chengStatus
-PUT http://localhost:8080/card/bank/chengStatus/8a8a828480ff35210180ff354c820000/Active
+PUT http://localhost:8080/v/card/chengStatus/8a8a828480ff35210180ff354c820000/Active
 Authorization: Basic bank bankjon
 
 ### assignPhone
-PUT http://localhost:8080/card/bank/assignPhone/{{id}}
+PUT http://localhost:8080/v1/card/assignPhone/{{id}}
 Authorization: Basic bank bankjon
 
 ### chengStatus

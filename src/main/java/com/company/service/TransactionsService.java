@@ -29,13 +29,16 @@ public class TransactionsService {
     public TransactionsResponseDTO create(TransactionsRequestDTO requestDTO) {
         cardService.get(requestDTO.getFromCardId(), requestDTO.getAmount());
         cardService.get(requestDTO.getToCardId());
+
         cardService.paymentMinus(requestDTO.getAmount(), requestDTO.getFromCardId());
         cardService.paymentPlus(requestDTO.getAmount(), requestDTO.getToCardId());
+
         TransactionsEntity entity = new TransactionsEntity();
         entity.setAmount(requestDTO.getAmount());
         entity.setFromCardId(requestDTO.getFromCardId());
         entity.setToCardId(requestDTO.getToCardId());
         entity.setStatus(StatusEnum.ACTIVE);
+        transactionsRepository.save(entity);
         return toDTO(entity);
     }
 

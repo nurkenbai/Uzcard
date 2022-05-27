@@ -19,7 +19,7 @@ public interface TransactionsRepository extends JpaRepository<TransactionsEntity
             " inner join fcr.client as fcl" +
             " inner join t.toCard as tcr" +
             " inner join tcr.client as tcl" +
-            " where (fcr.id=:cid or tcr.id=:cid) and t.status=:status" +
+            " where fcr.id=:cid  and t.status=:status" +
             " order by t.createdDate")
     Page<TransactionsMapper> getByCardId(Pageable pageable, @Param("cid") String cid, @Param("status")StatusEnum status);
 }

@@ -4,19 +4,22 @@ Authorization: Basic bank bankjon
 Content-Type: application/json
 
 {
-  "name": "Toshmat",
-  "surname":"Toshmatov",
-  "middleName": "Toshmatvich",
-  "phone":"+998999632355"
+  "name": "Val",
+  "surname": "Valov",
+  "middleName": "Valvich",
+  "phone": "+998999632355"
 }
+
 ### get by id
-GET http://localhost:8080/client/admin/getBy/8a8a828480fef62d0180fef9bafc0000
+GET http://localhost:8080/v1/client/8a8a828480fef62d0180fef9bafc0000
 Authorization: Basic admin adminjon
+
 ###
-GET http://localhost:8080/client/admin/pagination
+GET http://localhost:8080/v1/client/pagination
 Authorization: Basic admin adminjon
+
 ###
-PUT http://localhost:8080/client/bank/changePhone/8a8a828480fef62d0180fef9bafc0000
+PUT http://localhost:8080/v1/client/changePhone/8a8a828480fef62d0180fef9bafc0000
 Authorization: Basic bank bankjon
 Content-Type: application/json
 
@@ -25,24 +28,24 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/client/bank/update/8a8a828480fef62d0180fef9bafc0000
+PUT http://localhost:8080/v1/client/update/8a8a828480fef62d0180fef9bafc0000
 Authorization: Basic bank bankjon
 Content-Type: application/json
 
 {
-  "name": "Toshmat",
-  "surname":"Toshmatov",
-  "middleName": "Toshmatvich"
+  "name": "Eshmat",
+  "surname": "Eshmatov",
+  "middleName": "Eshmatvich"
 }
 
 ###
-PUT http://localhost:8080/client/bank/changeStatus/8a8a828480fef62d0180fef9bafc0000/Active
+PUT http://localhost:8080/v1/client/changeStatus/8a8a828480fef62d0180fef9bafc0000/Active
 Authorization: Basic bank bankjon
 
 ###
-PUT http://localhost:8080/client/bank/changeStatus/8a8a828480fef62d0180fef9bafc0000/block
+PUT http://localhost:8080/v1/client/changeStatus/8a8a828480fef62d0180fef9bafc0000/block
 Authorization: Basic bank bankjon
 
 ###
-PUT http://localhost:8080/client/bank/changeStatus/8a8a828480fef62d0180fef9bafc0000/notactive
+PUT http://localhost:8080/v1/client/changeStatus/8a8a828480fef62d0180fef9bafc0000/notactive
 Authorization: Basic bank bankjon
