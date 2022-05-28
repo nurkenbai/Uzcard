@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.dto.request.CardAssignRequestDTO;
+import com.company.dto.request.CardFilterRequestDTO;
 import com.company.dto.request.CardRequestDTO;
 import com.company.enums.StatusEnum;
 import com.company.service.CardService;
@@ -25,6 +26,13 @@ public class CardController {
     @PostMapping("")
     public ResponseEntity<?> create(@RequestBody CardRequestDTO requestDTO) {
         return ResponseEntity.ok(cardService.create(requestDTO));
+    }
+
+    @ApiOperation(value = "Create ", notes = "Method Create Card")
+    @PreAuthorize("hasRole('BANK')")
+    @PostMapping("/filter")
+    public ResponseEntity<?> filter(@RequestBody CardFilterRequestDTO requestDTO) {
+        return ResponseEntity.ok(cardService.filter(requestDTO));
     }
 
     @ApiOperation(value = "Get by id", notes = "Method get By id")

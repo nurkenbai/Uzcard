@@ -1,5 +1,7 @@
 package com.company.service;
 
+import com.company.dto.request.CardFilterRequestDTO;
+import com.company.dto.request.TransactionsFilterRequestDTO;
 import com.company.dto.request.TransactionsRequestDTO;
 import com.company.dto.response.CardResponseDTO;
 import com.company.dto.response.ClientResponseDTO;
@@ -8,6 +10,7 @@ import com.company.entity.TransactionsEntity;
 import com.company.enums.StatusEnum;
 import com.company.mapper.TransactionsMapper;
 import com.company.repository.TransactionsRepository;
+import com.company.repository.custom.TransactionsCustomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +27,8 @@ public class TransactionsService {
     private TransactionsRepository transactionsRepository;
     @Autowired
     private CardService cardService;
+    @Autowired
+    private TransactionsCustomRepository transactionsCustomRepository;
 
 
     public TransactionsResponseDTO create(TransactionsRequestDTO requestDTO) {
@@ -56,7 +61,56 @@ public class TransactionsService {
 
         return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
     }
+    public PageImpl<TransactionsResponseDTO> getByPhone(int page, int size, String cid) {
+        Pageable pageable = PageRequest.of(page, size);
 
+
+        Page<TransactionsMapper> entityPage = transactionsRepository.getByPhone(pageable, cid, StatusEnum.ACTIVE);
+
+        List<TransactionsMapper> entityList = entityPage.getContent();
+        List<TransactionsResponseDTO> playListDTO = new LinkedList<>();
+        entityList.forEach(entity -> {
+            playListDTO.add(toDTOMapper(entity));
+        });
+
+        return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
+    }
+    public PageImpl<TransactionsResponseDTO> getByProfileName(int page, int size, String cid) {
+        Pageable pageable = PageRequest.of(page, size);
+
+
+        Page<TransactionsMapper> entityPage = transactionsRepository.getByProfileName(pageable, cid, StatusEnum.ACTIVE);
+
+        List<TransactionsMapper> entityList = entityPage.getContent();
+        List<TransactionsResponseDTO> playListDTO = new LinkedList<>();
+        entityList.forEach(entity -> {
+            playListDTO.add(toDTOMapper(entity));
+        });
+
+        return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
+    }
+    public PageImpl<TransactionsResponseDTO> getByClientId(int page, int size, String cid) {
+        Pageable pageable = PageRequest.of(page, size);
+
+
+        Page<TransactionsMapper> entityPage = transactionsRepository.getByClientId(pageable, cid, StatusEnum.ACTIVE);
+
+        List<TransactionsMapper> entityList = entityPage.getContent();
+        List<TransactionsResponseDTO> playListDTO = new LinkedList<>();
+        entityList.forEach(entity -> {
+            playListDTO.add(toDTOMapper(entity));
+        });
+
+        return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
+    }
+
+    public List<TransactionsResponseDTO> filter(TransactionsFilterRequestDTO filterDTO) {
+        List<TransactionsResponseDTO> responseDTO = new LinkedList<>();
+        transactionsCustomRepository.filter(filterDTO).forEach(entity -> {
+            responseDTO.add(toDTO(entity));
+        });
+        return responseDTO;
+    }
     private TransactionsResponseDTO toDTOMapper(TransactionsMapper entity) {
         TransactionsResponseDTO responseDTO = new TransactionsResponseDTO();
         responseDTO.setId(entity.getT_id());

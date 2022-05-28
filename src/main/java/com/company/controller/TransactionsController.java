@@ -1,5 +1,7 @@
 package com.company.controller;
 
+import com.company.dto.request.CardFilterRequestDTO;
+import com.company.dto.request.TransactionsFilterRequestDTO;
 import com.company.dto.request.TransactionsRequestDTO;
 import com.company.service.TransactionsService;
 import io.swagger.annotations.Api;
@@ -30,5 +32,35 @@ public class TransactionsController {
                                           @RequestParam(value = "size", defaultValue = "5") int size,
                                           @PathVariable("cardId") String cardId) {
         return ResponseEntity.ok(transactionsService.getByCardIdAndPagination(page, size, cardId));
+    }
+    @ApiOperation(value = "get", notes = "Method create Transactions")
+    @GetMapping("/clientId/{clientId}")
+    @PreAuthorize("hasRole('BANK')")
+    public ResponseEntity<?> getByClientId(@RequestParam(value = "page", defaultValue = "0") int page,
+                                         @RequestParam(value = "size", defaultValue = "5") int size,
+                                         @PathVariable("clientId") String cardId) {
+        return ResponseEntity.ok(transactionsService.getByClientId(page, size, cardId));
+    }
+    @ApiOperation(value = "get", notes = "Method create Transactions")
+    @GetMapping("/profileName/{profileName}")
+    @PreAuthorize("hasRole('BANK')")
+    public ResponseEntity<?> getByProfileName(@RequestParam(value = "page", defaultValue = "0") int page,
+                                         @RequestParam(value = "size", defaultValue = "5") int size,
+                                         @PathVariable("profileName") String cardId) {
+        return ResponseEntity.ok(transactionsService.getByProfileName(page, size, cardId));
+    }
+    @ApiOperation(value = "get", notes = "Method create Transactions")
+    @GetMapping("/phone/{phone}")
+    @PreAuthorize("hasRole('BANK')")
+    public ResponseEntity<?> getByPhone(@RequestParam(value = "page", defaultValue = "0") int page,
+                                         @RequestParam(value = "size", defaultValue = "5") int size,
+                                         @PathVariable("phone") String cardId) {
+        return ResponseEntity.ok(transactionsService.getByPhone(page, size, cardId));
+    }
+    @ApiOperation(value = "get Filter ", notes = "Method Get Filter")
+    @PreAuthorize("hasRole('BANK')")
+    @PostMapping("/filter")
+    public ResponseEntity<?> filter(@RequestBody TransactionsFilterRequestDTO requestDTO) {
+        return ResponseEntity.ok(transactionsService.filter(requestDTO));
     }
 }

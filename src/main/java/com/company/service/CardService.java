@@ -1,12 +1,14 @@
 package com.company.service;
 
 import com.company.config.AuthorizationConfig;
+import com.company.dto.request.CardFilterRequestDTO;
 import com.company.dto.request.CardRequestDTO;
 import com.company.dto.response.CardResponseDTO;
 import com.company.entity.CardEntity;
 import com.company.enums.StatusEnum;
 import com.company.exeption.InsufficientFundsException;
 import com.company.exeption.ItemNotFoundException;
+import com.company.repository.custom.CardCustomRepository;
 import com.company.repository.CardRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class CardService {
     private CardRepository cardRepository;
     private final int min = 1000;
     private final int max = 9999;
+    @Autowired
+    private CardCustomRepository cardCustomRepository;
 
 
     public CardResponseDTO create(CardRequestDTO requestDTO) {
@@ -116,6 +120,14 @@ public class CardService {
     public Boolean assignPhone(String phone, String cid) {
         int n = cardRepository.assignPhone(phone, cid);
         return n > 0;
+    }
+
+    public List<CardResponseDTO> filter(CardFilterRequestDTO filterDTO) {
+        List<CardResponseDTO> responseDTO = new LinkedList<>();
+        cardCustomRepository.filter(filterDTO).forEach(entity -> {
+            responseDTO.add(toDTO(entity));
+        });
+        return responseDTO;
     }
 
     public Boolean chengStatus(StatusEnum status, String id) {
