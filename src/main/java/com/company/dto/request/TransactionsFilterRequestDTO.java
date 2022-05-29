@@ -13,7 +13,8 @@ public class TransactionsFilterRequestDTO {
     private String id;
     private String fromAmount;
     private String toAmount;
-    private LocalDateTime toDate;
+    private String profileName;
+    private LocalDate toDate;
     private LocalDate fromDate;
     private StatusEnum status;
 }

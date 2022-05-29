@@ -1,6 +1,5 @@
 package com.company.service;
 
-import com.company.dto.request.CardFilterRequestDTO;
 import com.company.dto.request.TransactionsFilterRequestDTO;
 import com.company.dto.request.TransactionsRequestDTO;
 import com.company.dto.response.CardResponseDTO;
@@ -61,6 +60,7 @@ public class TransactionsService {
 
         return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
     }
+
     public PageImpl<TransactionsResponseDTO> getByPhone(int page, int size, String cid) {
         Pageable pageable = PageRequest.of(page, size);
 
@@ -75,6 +75,7 @@ public class TransactionsService {
 
         return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
     }
+
     public PageImpl<TransactionsResponseDTO> getByProfileName(int page, int size, String cid) {
         Pageable pageable = PageRequest.of(page, size);
 
@@ -89,6 +90,7 @@ public class TransactionsService {
 
         return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
     }
+
     public PageImpl<TransactionsResponseDTO> getByClientId(int page, int size, String cid) {
         Pageable pageable = PageRequest.of(page, size);
 
@@ -111,13 +113,15 @@ public class TransactionsService {
         });
         return responseDTO;
     }
+
     private TransactionsResponseDTO toDTOMapper(TransactionsMapper entity) {
         TransactionsResponseDTO responseDTO = new TransactionsResponseDTO();
         responseDTO.setId(entity.getT_id());
 
         CardResponseDTO fromCard = new CardResponseDTO();
         fromCard.setId(entity.getFcr_id());
-        fromCard.setNumber(entity.getFcr_number());
+        String fromCardNumber = getCardNumberSkr(entity.getFcr_number());
+        fromCard.setNumber(fromCardNumber);
 
         ClientResponseDTO fromClient = new ClientResponseDTO();
         fromClient.setId(entity.getFcl_id());
@@ -135,7 +139,7 @@ public class TransactionsService {
         toClient.setSurname(entity.getTcl_surname());
 
         toCard.setClient(toClient);
-        toCard.setNumber(entity.getTcr_number());
+        toCard.setNumber(getCardNumberSkr(entity.getTcr_number()));
 
         responseDTO.setToCard(toCard);
         responseDTO.setFromCard(fromCard);
@@ -143,6 +147,10 @@ public class TransactionsService {
         responseDTO.setStatus(entity.getT_status());
         responseDTO.setCreatedDate(entity.getT_createdDate());
         return responseDTO;
+    }
+
+    private String getCardNumberSkr(String entity) {
+        return entity.substring(0, 5) + "-****-****-" + entity.substring(entity.length() - 4);
     }
 
     private TransactionsResponseDTO toDTO(TransactionsEntity entity) {

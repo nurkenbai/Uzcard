@@ -16,14 +16,13 @@ public class TransactionsCustomRepository {
     @Autowired
     private EntityManager entityManager;
 
-    public List<TransactionsEntity> filter(TransactionsFilterRequestDTO filter){
+    public List<TransactionsEntity> filter(TransactionsFilterRequestDTO filter) {
         StringBuilder sql = new StringBuilder("SELECT  c FROM  TransactionsEntity as c ");
         if (filter != null) {
             sql.append(" WHERE c.status = '" + filter.getStatus().name() + "'");
         } else {
             sql.append(" WHERE c.status = 'ACTIVE'");
         }
-
 
 
         if (filter.getFromAmount() != null && filter.getToAmount() != null) {
@@ -35,13 +34,16 @@ public class TransactionsCustomRepository {
         }
 
         if (filter.getFromDate() != null && filter.getToDate() != null) {
-            sql.append(" AND  c.created_date between " + filter.getFromDate() + " AND " + filter.getToDate());
-        } else if (filter.getFromAmount() != null) {
-            sql.append(" AND  c.created_date > " + filter.getFromAmount());
-        } else if (filter.getToAmount() != null) {
-            sql.append(" AND  c.created_date < " + filter.getToAmount());
+            sql.append(" and date(t.createdDate) between :fromDate and :toDate ");
+        } else if (filter.getFromDate() != null) {
+            sql.append(" and date(t.createdDate) > :fromDate ");
+        } else if (filter.getToDate() != null) {
+            sql.append(" and date(t.createdDate) < :toDate ");
         }
 
+        if (filter.getProfileName() != null) {
+            sql.append(" and t.profileName = :profileName ");
+        }
 
         Query query = entityManager.createQuery(sql.toString(), TransactionsEntity.class);
         List<TransactionsEntity> transactionsEntities = query.getResultList();
