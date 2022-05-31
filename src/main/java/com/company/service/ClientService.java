@@ -26,6 +26,10 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public ClientResponseDTO create(ClientRequestDTO requestDTO) {
+        clientRepository.findByPhone(requestDTO.getPhone()).orElseThrow(() -> {
+            log.warn("there is already such a phone");
+            throw new ItemNotFoundException("there is already such a phone");
+        });
         String profileName = AuthorizationConfig.getCurrentProfileUserName();
         ClientEntity entity = new ClientEntity();
         entity.setName(requestDTO.getName());
@@ -44,6 +48,13 @@ public class ClientService {
             throw new ItemNotFoundException("Client id not found");
         });
         return toDTO(entity);
+    }
+    public ClientEntity get(String id) {
+        return clientRepository.findById(id).orElseThrow(() -> {
+            log.warn("Client id not found");
+            throw new ItemNotFoundException("Client id not found");
+        });
+
     }
 
     public List<ClientResponseDTO> getAll() {
@@ -93,6 +104,7 @@ public class ClientService {
         responseDTO.setPhone(entity.getPhone());
         responseDTO.setStatus(entity.getStatus());
         responseDTO.setCreatedDate(entity.getCreatedDate());
+        responseDTO.setProfileName(entity.getProfileName());
         return responseDTO;
     }
 

@@ -9,6 +9,17 @@ Content-Type: application/json
   "middleName": "Valvich",
   "phone": "+998999632355"
 }
+### create
+POST http://167.172.66.39:9091/v1/client
+Authorization: Basic bank bankjon
+Content-Type: application/json
+
+{
+  "name": "Val",
+  "surname": "Valov",
+  "middleName": "Valvich",
+  "phone": "+998999632355"
+}
 
 ### get by id
 GET http://localhost:8080/v1/client/8a8a828480fef62d0180fef9bafc0000
@@ -16,6 +27,9 @@ Authorization: Basic admin adminjon
 
 ###
 GET http://localhost:8080/v1/client/pagination
+Authorization: Basic admin adminjon
+###
+GET http://167.172.66.39:9091/v1/client/pagination
 Authorization: Basic admin adminjon
 
 ###

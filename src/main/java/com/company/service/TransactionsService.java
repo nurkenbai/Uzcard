@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class TransactionsService {
     @Autowired
     private TransactionsCustomRepository transactionsCustomRepository;
 
-
+    @Transactional
     public TransactionsResponseDTO create(TransactionsRequestDTO requestDTO) {
         cardService.get(requestDTO.getFromCardId(), requestDTO.getAmount());
         cardService.get(requestDTO.getToCardId());
@@ -150,7 +151,7 @@ public class TransactionsService {
     }
 
     private String getCardNumberSkr(String entity) {
-        return entity.substring(0, 5) + "-****-****-" + entity.substring(entity.length() - 4);
+        return entity.substring(0, 4) + "-****-****-" + entity.substring(entity.length() - 4);
     }
 
     private TransactionsResponseDTO toDTO(TransactionsEntity entity) {

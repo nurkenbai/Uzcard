@@ -1,32 +1,53 @@
-28 мая 2022 - 17:45:34.321 - com.company.UzCardApplication -  INFO  - Starting UzCardApplication using Java 17.0.3 on DESKTOP-OGCJ8KA with PID 16832 (F:\java\Uzcard\target\classes started by NURKEN in F:\java\Uzcard)
-28 мая 2022 - 17:45:34.336 - com.company.UzCardApplication -  DEBUG - Running with Spring Boot v2.7.0, Spring v5.3.20
-28 мая 2022 - 17:45:34.338 - com.company.UzCardApplication -  INFO  - The following 1 profile is active: "dev"
-28 мая 2022 - 17:45:36.439 - o.s.d.r.c.RepositoryConfigurationDelegate -  INFO  - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-28 мая 2022 - 17:45:36.553 - o.s.d.r.c.RepositoryConfigurationDelegate -  INFO  - Finished Spring Data repository scanning in 94 ms. Found 3 JPA repository interfaces.
-28 мая 2022 - 17:45:38.101 - o.s.b.w.e.tomcat.TomcatWebServer -  INFO  - Tomcat initialized with port(s): 8080 (http)
-28 мая 2022 - 17:45:38.123 - o.a.catalina.core.StandardService -  INFO  - Starting service [Tomcat]
-28 мая 2022 - 17:45:38.124 - o.a.catalina.core.StandardEngine -  INFO  - Starting Servlet engine: [Apache Tomcat/9.0.63]
-28 мая 2022 - 17:45:38.336 - o.a.c.c.C.[Tomcat].[localhost].[/] -  INFO  - Initializing Spring embedded WebApplicationContext
-28 мая 2022 - 17:45:38.339 - o.s.b.w.s.c.ServletWebServerApplicationContext -  INFO  - Root WebApplicationContext: initialization completed in 3853 ms
-28 мая 2022 - 17:45:38.795 - o.h.jpa.internal.util.LogHelper -  INFO  - HHH000204: Processing PersistenceUnitInfo [name: default]
-28 мая 2022 - 17:45:38.931 - org.hibernate.Version -  INFO  - HHH000412: Hibernate ORM core version 5.6.9.Final
-28 мая 2022 - 17:45:39.361 - o.h.annotations.common.Version -  INFO  - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-28 мая 2022 - 17:45:39.607 - com.zaxxer.hikari.HikariDataSource -  INFO  - HikariPool-1 - Starting...
-28 мая 2022 - 17:45:40.090 - com.zaxxer.hikari.HikariDataSource -  INFO  - HikariPool-1 - Start completed.
-28 мая 2022 - 17:45:40.149 - org.hibernate.dialect.Dialect -  INFO  - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
-28 мая 2022 - 17:45:40.562 - org.hibernate.id.UUIDHexGenerator -  WARN  - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
-28 мая 2022 - 17:45:41.795 - o.h.e.t.j.p.i.JtaPlatformInitiator -  INFO  - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-28 мая 2022 - 17:45:41.805 - o.s.o.j.LocalContainerEntityManagerFactoryBean -  INFO  - Initialized JPA EntityManagerFactory for persistence unit 'default'
-28 мая 2022 - 17:45:41.872 - o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration -  WARN  - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-28 мая 2022 - 17:45:44.103 - o.s.s.web.DefaultSecurityFilterChain -  INFO  - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@795e8ef5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@13976c57, org.springframework.security.web.context.SecurityContextPersistenceFilter@7db679, org.springframework.security.web.header.HeaderWriterFilter@6b3da23f, org.springframework.security.web.authentication.logout.LogoutFilter@5ff8d76f, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@175c26ff, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f97e3de, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@492d38a2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@10b7b5f0, org.springframework.security.web.session.SessionManagementFilter@5ed463b7, org.springframework.security.web.access.ExceptionTranslationFilter@46bff388, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4cf1bd4a]
-28 мая 2022 - 17:45:44.754 - o.s.b.a.s.s.UserDetailsServiceAutoConfiguration -  WARN  - 
+31 мая 2022 - 22:06:24.758 - com.company.UzCardApplication -  INFO  - Starting UzCardApplication using Java 17.0.3 on DESKTOP-OGCJ8KA with PID 13752 (F:\java\Uzcard\target\classes started by NURKEN in F:\java\Uzcard)
+31 мая 2022 - 22:06:24.776 - com.company.UzCardApplication -  DEBUG - Running with Spring Boot v2.7.0, Spring v5.3.20
+31 мая 2022 - 22:06:24.777 - com.company.UzCardApplication -  INFO  - The following 1 profile is active: "dev"
+31 мая 2022 - 22:06:27.033 - o.s.d.r.c.RepositoryConfigurationDelegate -  INFO  - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+31 мая 2022 - 22:06:27.167 - o.s.d.r.c.RepositoryConfigurationDelegate -  INFO  - Finished Spring Data repository scanning in 112 ms. Found 3 JPA repository interfaces.
+31 мая 2022 - 22:06:29.377 - o.s.b.w.e.tomcat.TomcatWebServer -  INFO  - Tomcat initialized with port(s): 8080 (http)
+31 мая 2022 - 22:06:29.398 - o.a.catalina.core.StandardService -  INFO  - Starting service [Tomcat]
+31 мая 2022 - 22:06:29.399 - o.a.catalina.core.StandardEngine -  INFO  - Starting Servlet engine: [Apache Tomcat/9.0.63]
+31 мая 2022 - 22:06:29.618 - o.a.c.c.C.[Tomcat].[localhost].[/] -  INFO  - Initializing Spring embedded WebApplicationContext
+31 мая 2022 - 22:06:29.619 - o.s.b.w.s.c.ServletWebServerApplicationContext -  INFO  - Root WebApplicationContext: initialization completed in 4626 ms
+31 мая 2022 - 22:06:30.055 - o.h.jpa.internal.util.LogHelper -  INFO  - HHH000204: Processing PersistenceUnitInfo [name: default]
+31 мая 2022 - 22:06:30.174 - org.hibernate.Version -  INFO  - HHH000412: Hibernate ORM core version 5.6.9.Final
+31 мая 2022 - 22:06:30.568 - o.h.annotations.common.Version -  INFO  - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+31 мая 2022 - 22:06:30.808 - com.zaxxer.hikari.HikariDataSource -  INFO  - HikariPool-1 - Starting...
+31 мая 2022 - 22:06:31.224 - com.zaxxer.hikari.HikariDataSource -  INFO  - HikariPool-1 - Start completed.
+31 мая 2022 - 22:06:31.278 - org.hibernate.dialect.Dialect -  INFO  - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+31 мая 2022 - 22:06:31.363 - Hibernate Types -  INFO  - This framework is proudly powered by:
 
-Using generated security password: 0efb41ba-97b3-4057-ab50-5d6d07a91278
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ _    _                           _     _
+| |  | |                         (_)   | |
+| |__| |_   _ _ __   ___ _ __ ___ _ ___| |_ ___ _ __   ___ ___
+|  __  | | | | '_ \ / _ \ '__/ __| / __| __/ _ \ '_ \ / __/ _ \
+| |  | | |_| | |_) |  __/ |  \__ \ \__ \ ||  __/ | | | (_|  __/
+|_|  |_|\__, | .__/ \___|_|  |___/_|___/\__\___|_| |_|\___\___|
+         __/ | |
+        |___/|_|
+
+At Hypersistence, we only build amazing tools, like Hibernate Types, Flexy Pool, or Hypersistence Optimizer.
+
+What if there were a tool that could automatically detect JPA and Hibernate performance issues?
+
+Hypersistence Optimizer is that tool! For more details, go to: 
+
+https://vladmihalcea.com/hypersistence-optimizer/
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+31 мая 2022 - 22:06:31.819 - org.hibernate.id.UUIDHexGenerator -  WARN  - HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+31 мая 2022 - 22:06:33.228 - o.h.e.t.j.p.i.JtaPlatformInitiator -  INFO  - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+31 мая 2022 - 22:06:33.238 - o.s.o.j.LocalContainerEntityManagerFactoryBean -  INFO  - Initialized JPA EntityManagerFactory for persistence unit 'default'
+31 мая 2022 - 22:06:33.355 - o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration -  WARN  - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+31 мая 2022 - 22:06:35.947 - o.s.s.web.DefaultSecurityFilterChain -  INFO  - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@47f4dc8d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@689fcf08, org.springframework.security.web.context.SecurityContextPersistenceFilter@73158d35, org.springframework.security.web.header.HeaderWriterFilter@255482cb, org.springframework.security.web.authentication.logout.LogoutFilter@45430a27, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4eb3b690, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d5fea64, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2d26c6a2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@738153d8, org.springframework.security.web.session.SessionManagementFilter@5cef5fc9, org.springframework.security.web.access.ExceptionTranslationFilter@ab5dde4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@341141ab]
+31 мая 2022 - 22:06:36.529 - o.s.b.a.s.s.UserDetailsServiceAutoConfiguration -  WARN  - 
+
+Using generated security password: e1ad5bff-9731-45fc-8005-050bf64695cf
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-28 мая 2022 - 17:45:44.796 - o.s.b.w.e.tomcat.TomcatWebServer -  INFO  - Tomcat started on port(s): 8080 (http) with context path ''
-28 мая 2022 - 17:45:45.416 - com.company.UzCardApplication -  INFO  - Started UzCardApplication in 11.929 seconds (JVM running for 13.241)
-28 мая 2022 - 18:19:20.979 - o.s.o.j.LocalContainerEntityManagerFactoryBean -  INFO  - Closing JPA EntityManagerFactory for persistence unit 'default'
-28 мая 2022 - 18:19:20.981 - com.zaxxer.hikari.HikariDataSource -  INFO  - HikariPool-1 - Shutdown initiated...
-28 мая 2022 - 18:19:20.993 - com.zaxxer.hikari.HikariDataSource -  INFO  - HikariPool-1 - Shutdown completed.
+31 мая 2022 - 22:06:36.572 - o.s.b.w.e.tomcat.TomcatWebServer -  INFO  - Tomcat started on port(s): 8080 (http) with context path ''
+31 мая 2022 - 22:06:37.476 - com.company.UzCardApplication -  INFO  - Started UzCardApplication in 13.831 seconds (JVM running for 14.744)
+31 мая 2022 - 22:10:41.705 - o.s.o.j.LocalContainerEntityManagerFactoryBean -  INFO  - Closing JPA EntityManagerFactory for persistence unit 'default'
+31 мая 2022 - 22:10:41.715 - com.zaxxer.hikari.HikariDataSource -  INFO  - HikariPool-1 - Shutdown initiated...
+31 мая 2022 - 22:10:41.768 - com.zaxxer.hikari.HikariDataSource -  INFO  - HikariPool-1 - Shutdown completed.

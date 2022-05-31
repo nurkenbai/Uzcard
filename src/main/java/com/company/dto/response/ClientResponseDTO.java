@@ -13,4 +13,5 @@ public class ClientResponseDTO extends ClientRequestDTO {
     private String id;
     private StatusEnum status;
     private LocalDateTime createdDate;
+    private String profileName;
 }

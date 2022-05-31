@@ -3,6 +3,7 @@ package com.company.repository.custom;
 import com.company.dto.request.CardFilterRequestDTO;
 import com.company.dto.response.CardResponseDTO;
 import com.company.entity.CardEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,9 +12,10 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class CardCustomRepository {
-    @Autowired
-    private EntityManager entityManager;
+
+    private final EntityManager entityManager;
 
     public List<CardEntity> filter(CardFilterRequestDTO filter){
         StringBuilder sql = new StringBuilder("SELECT  c FROM  CardEntity as c ");
@@ -27,7 +29,7 @@ public class CardCustomRepository {
             sql.append(" AND  c.uuid = '" + filter.getCardId() + "'");
         }
         if (filter.getCardNumber() != null) {
-            sql.append(" AND  c.number = " + filter.getCardId());
+            sql.append(" AND  c.number = '" + filter.getCardNumber()+"'");
         }
 
         if (filter.getFromBalance() != null && filter.getToBalance() != null) {

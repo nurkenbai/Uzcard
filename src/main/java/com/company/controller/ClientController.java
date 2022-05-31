@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @Api(tags = "Client")
 @RestController
@@ -25,7 +27,8 @@ public class ClientController {
       @PreAuthorize("hasRole('BANK')")
      @ApiOperation(value = "Create", notes = "Method create Client")
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody ClientRequestDTO requestDTO) {
+    public ResponseEntity<?> create(@RequestBody @Valid ClientRequestDTO requestDTO) {
+          log.info("Create: {}",requestDTO);
         return ResponseEntity.ok(clientService.create(requestDTO));
     }
 
@@ -33,12 +36,14 @@ public class ClientController {
     @PreAuthorize("hasRole('BANK')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") String id) {
+         log.info("Get by id: {}",id);
         return ResponseEntity.ok(clientService.getById(id));
     }
 
      @ApiOperation(value = "Get All", notes = "Method get All")
     @GetMapping("")
     public ResponseEntity<?> getAll() {
+         log.info("Get All: {}",CardController.class);
         return ResponseEntity.ok(clientService.getAll());
     }
 
@@ -47,13 +52,16 @@ public class ClientController {
     @GetMapping("/pagination")
     public ResponseEntity<?> pagination(@RequestParam(value = "page", defaultValue = "0") int page,
                                         @RequestParam(value = "size", defaultValue = "5") int size) {
+        log.info("pagination: {}",CardController.class);
         return ResponseEntity.ok(clientService.pagination(page, size));
     }
 
     @ApiOperation(value = "Cheng changePhone", notes = "Method Cheng changePhone")
     @PreAuthorize("hasRole('BANK')")
     @PutMapping("/changePhone/{id}")
-    public ResponseEntity<?> changePhone(@RequestBody ClientChangePhoneRequestDTO requestDTO, @PathVariable("id") String id) {
+    public ResponseEntity<?> changePhone(@RequestBody @Valid ClientChangePhoneRequestDTO requestDTO,
+                                         @PathVariable("id") String id) {
+        log.info("changePhone: {},{}",CardController.class,requestDTO);
         return ResponseEntity.ok(clientService.changePhone(requestDTO, id));
     }
 
@@ -61,6 +69,7 @@ public class ClientController {
     @PreAuthorize("hasRole('BANK')")
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody ClientRequestDTO requestDTO, @PathVariable("id") String id) {
+        log.info("Update: {},{}",CardController.class,requestDTO);
         return ResponseEntity.ok(clientService.update(requestDTO, id));
     }
 
@@ -68,6 +77,7 @@ public class ClientController {
     @PreAuthorize("hasRole('BANK')")
     @PutMapping("/changeStatus/{id}/Active")
     public ResponseEntity<?> chengStatusActive(@PathVariable("id") String id) {
+        log.info("Cheng Status Active: {},{}",CardController.class,id);
         return ResponseEntity.ok(clientService.changeStatus(StatusEnum.ACTIVE, id));
     }
 
@@ -75,6 +85,7 @@ public class ClientController {
     @PreAuthorize("hasRole('BANK')")
     @PutMapping("/changeStatus/{id}/block")
     public ResponseEntity<?> chengStatusBlock(@PathVariable("id") String id) {
+        log.info("Cheng Status Block: {},{}",CardController.class,id);
         return ResponseEntity.ok(clientService.changeStatus(StatusEnum.BLOCK, id));
     }
 
@@ -82,6 +93,7 @@ public class ClientController {
     @PreAuthorize("hasRole('BANK')")
     @PutMapping("/changeStatus/{id}/notactive")
     public ResponseEntity<?> chengStatusNotActive(@PathVariable("id") String id) {
+        log.info("Cheng Status Not Active: {},{}",CardController.class,id);
         return ResponseEntity.ok(clientService.changeStatus(StatusEnum.NOT_ACTIVE, id));
     }
 }

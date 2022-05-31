@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<ClientEntity, String> {
     @Transactional
@@ -24,4 +25,6 @@ public interface ClientRepository extends JpaRepository<ClientEntity, String> {
     @Modifying
     @Query("update ClientEntity set name = :name,surname=:surname,middleName=:middlea where id = :id")
     int update(@Param("name") String name, @Param("surname") String surname, @Param("middlea") String middleName, @Param("id") String cid);
+
+    Optional<ClientEntity> findByPhone(String phone);
 }

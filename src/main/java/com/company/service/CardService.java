@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Slf4j
 @Service
 public class CardService {
@@ -28,9 +30,11 @@ public class CardService {
     private final int max = 9999;
     @Autowired
     private CardCustomRepository cardCustomRepository;
-
+    @Autowired
+    private ClientService clientService;
 
     public CardResponseDTO create(CardRequestDTO requestDTO) {
+        clientService.get(requestDTO.getClientId());
         String profileName = AuthorizationConfig.getCurrentProfileUserName();
         CardEntity entity = new CardEntity();
         entity.setNumber(getCardNumber());
@@ -62,6 +66,14 @@ public class CardService {
             throw new ItemNotFoundException("Client id not found");
         });
         return entity;
+    }
+
+    public List<CardResponseDTO> getAll() {
+        List<CardResponseDTO> responseDTOS = new LinkedList<>();
+        cardRepository.findByStatus(StatusEnum.ACTIVE).forEach(entity -> {
+            responseDTOS.add(toDTO(entity));
+        });
+        return responseDTOS;
     }
 
     public CardEntity get(String id, Long amount) {
