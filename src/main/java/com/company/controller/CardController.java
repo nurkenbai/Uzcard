@@ -43,10 +43,10 @@ public class CardController {
 
     @ApiOperation(value = "Get by id", notes = "Method get By id")
     @PreAuthorize("hasRole('BANK')")
-    @GetMapping("/{id}")
-    public ResponseEntity<CardResponseDTO> getById(@PathVariable("id") String id) {
-        log.info("get BY id: {}", id);
-        return ResponseEntity.ok(cardService.getById(id));
+    @GetMapping("/{cardId}")
+    public ResponseEntity<CardResponseDTO> getById(@PathVariable("cardId") String cardId) {
+        log.info("get BY id: {}", cardId);
+        return ResponseEntity.ok(cardService.getById(cardId));
     }
 
     @ApiOperation(value = "Get", notes = "Method used for get card")
@@ -90,20 +90,20 @@ public class CardController {
 
     @ApiOperation(value = "Assign Phone", notes = "Method used for assign phone")
     @PreAuthorize("hasRole('BANK')")
-    @PutMapping("/phone/{Cardid}")
-    public ResponseEntity<Boolean> assignPhone(@PathVariable("id") String id, @RequestBody @Valid CardAssignRequestDTO requestDTO) {
-        log.info("Assign Phone: {}", id);
-        return ResponseEntity.ok(cardService.assignPhone(requestDTO.getPhone(), id));
+    @PutMapping("/phone/{cardId}")
+    public ResponseEntity<Boolean> assignPhone(@PathVariable("cardId") String cardId, @RequestBody @Valid CardAssignRequestDTO requestDTO) {
+        log.info("Assign Phone: {}", cardId);
+        return ResponseEntity.ok(cardService.assignPhone(requestDTO.getPhone(), cardId));
     }
 
 
     @ApiOperation(value = "Update Status", notes = "Method used for update status")
     @PreAuthorize("hasAnyRole('BANK', 'PROFILE')")
-    @PutMapping("/status/{id}")
+    @PutMapping("/status/{cardId}")
     public ResponseEntity<Boolean> updateStatus(@RequestBody @Valid CardStatusDTO dto,
-                                          @PathVariable("id") String id) {
+                                          @PathVariable("cardId") String cardId) {
         log.info("Status: {}",dto.getStatus());
-        return ResponseEntity.ok(cardService.chengStatus(dto.getStatus(),id));
+        return ResponseEntity.ok(cardService.chengStatus(dto.getStatus(),cardId));
     }
 
 }

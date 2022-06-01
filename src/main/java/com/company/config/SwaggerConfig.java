@@ -3,6 +3,11 @@ package com.company.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //import springfox.documentation.builders.RequestHandlerSelectors;
 //import springfox.documentation.service.ApiInfo;
 //import springfox.documentation.spi.DocumentationType;
@@ -13,10 +18,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Configuration
-//@EnableSwagger2
+@Configuration
+@EnableSwagger2
 public class SwaggerConfig {
-/*    @Bean
+    @Bean
     public Docket swaggerConfiguration() {
 
         Set<String> consumes = new HashSet<>();
@@ -36,10 +41,10 @@ public class SwaggerConfig {
                 "Api documentation for project name.",
                 "1.0",
                 "Beast team.",
-                new springfox.documentation.service.Contact("UzCard", "uzcard", "ashirov@gmail.com"),
+                new springfox.documentation.service.Contact("UzCard", "uzcard", "djnagibaevnurken01@gmail.com"),
                 "",
                 "",
                 Collections.emptyList()
         );
-    }*/
+    }
 }

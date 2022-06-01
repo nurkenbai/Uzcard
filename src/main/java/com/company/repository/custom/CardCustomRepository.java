@@ -18,7 +18,7 @@ public class CardCustomRepository {
     private final EntityManager entityManager;
 
     public List<CardEntity> filter(CardFilterRequestDTO filter){
-        StringBuilder sql = new StringBuilder("SELECT  c FROM  CardEntity as c ");
+            StringBuilder sql = new StringBuilder("SELECT  c FROM  CardEntity as c ");
         if (filter != null) {
             sql.append(" WHERE c.status = '" + filter.getStatus().name() + "'");
         } else {

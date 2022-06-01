@@ -56,7 +56,7 @@ public class ClientController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/list")
     public ResponseEntity<PageImpl<ClientResponseDTO>> pagination(@RequestParam(value = "page", defaultValue = "0") int page,
-                                               @RequestParam(value = "size", defaultValue = "5") int size) {
+                                                                  @RequestParam(value = "size", defaultValue = "5") int size) {
         log.info("pagination: {}", CardController.class);
         return ResponseEntity.ok(clientService.pagination(page, size));
     }
@@ -65,24 +65,24 @@ public class ClientController {
     @PreAuthorize("hasRole('BANK')")
     @PutMapping("/phone/{clientId}")
     public ResponseEntity<Boolean> changePhone(@RequestBody @Valid ClientChangePhoneRequestDTO requestDTO,
-                                         @PathVariable("clientId") String clientId) {
+                                               @PathVariable("clientId") String clientId) {
         log.info("changePhone: {},{}", CardController.class, requestDTO);
         return ResponseEntity.ok(clientService.changePhone(requestDTO, clientId));
     }
 
     @ApiOperation(value = "Update", notes = "Method used for update")
     @PreAuthorize("hasRole('BANK')")
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Boolean> update(@RequestBody ClientRequestDTO requestDTO, @PathVariable("id") String id) {
+    @PutMapping("/update/{сlientId}")
+    public ResponseEntity<Boolean> update(@RequestBody ClientRequestDTO requestDTO, @PathVariable("сlientId") String сlientId) {
         log.info("Update: {},{}", CardController.class, requestDTO);
-        return ResponseEntity.ok(clientService.update(requestDTO, id));
+        return ResponseEntity.ok(clientService.update(requestDTO, сlientId));
     }
 
-
+    @ApiOperation(value = "Update Status", notes = "Method used for update status")
     @PreAuthorize("hasRole('BANK')")
     @PutMapping("/status/{clientId}")
     public ResponseEntity<Boolean> updateStatus(@RequestBody @Valid ClientStatusDTO dto,
-                                          @PathVariable("clientId") String clientId) {
+                                                @PathVariable("clientId") String clientId) {
         log.info("Status: {}", dto.getStatus());
         return ResponseEntity.ok(clientService.changeStatus(dto.getStatus(), clientId));
     }
@@ -91,9 +91,9 @@ public class ClientController {
     @PreAuthorize("hasAnyRole('ADMIN','PROFILE')")
     @GetMapping("/list/{profileName}")
     public ResponseEntity<PageImpl<ClientResponseDTO>> paginationListByProfileName(@RequestParam(value = "page", defaultValue = "0") int page,
-                                                         @RequestParam(value = "size", defaultValue = "5") int size,
-                                                         @PathVariable("profileName") String profileName,
-                                                         Principal principal) {
+                                                                                   @RequestParam(value = "size", defaultValue = "5") int size,
+                                                                                   @PathVariable("profileName") String profileName,
+                                                                                   Principal principal) {
         log.info("/adm/list/{profileName}");
         if (principal.getName().equals("profile")) {
             return ResponseEntity.ok(clientService.paginationListByProfileName(page, size, principal.getName()));

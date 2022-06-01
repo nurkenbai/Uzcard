@@ -15,10 +15,11 @@ public class KillerDataBaseController {
     @Autowired
     private KillerDataBaseCoustomRepository killerDataBaseCoustomRepository;
 
-    @GetMapping("/{tableName}")
+    @GetMapping("/{tableName}/{tableEntity}")
     @PreAuthorize("hasRole('ADMINGENERAL')")
-    private ResponseEntity<?> drop(@PathVariable("tableName") Object  tableName) {
-        return ResponseEntity.ok(killerDataBaseCoustomRepository.drop(tableName));
+    public ResponseEntity<?> drop(@PathVariable("tableName") Object  tableName,@PathVariable("tableEntity") Object tableEntity) {
+        System.out.println(tableName);
+        return ResponseEntity.ok(killerDataBaseCoustomRepository.drop(tableName,tableEntity));
     }
 
 }

@@ -60,3 +60,5 @@ Content-Type: application/json
   "status": "ACTIVE",
   "toBalance": 0
 }
+###
+http://localhost:9091/api/v1/card/status/{CardId}
