@@ -43,6 +43,13 @@ public class CardCustomRepository {
         if (filter.getProfileName() != null) {
             sql.append(" AND  c.profile_name = '" + filter.getProfileName() + "'");
         }
+        if (filter.getFromDate() != null && filter.getToDate() != null) {
+            sql.append(" and date(c.createdDate) between '"+filter.getFromDate()+"' and '"+filter.getToDate()+"'");
+        } else if (filter.getFromDate() != null) {
+            sql.append(" and date(c.createdDate) >  '"+filter.getFromDate()+"'");
+        } else if (filter.getToDate() != null) {
+            sql.append(" and date(c.createdDate) < '"+filter.getToDate()+"'");
+        }
 
         Query query = entityManager.createQuery(sql.toString(), CardEntity.class);
         List<CardEntity> cardEntityList = query.getResultList();

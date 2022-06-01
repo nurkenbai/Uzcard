@@ -2,6 +2,8 @@ package com.company.repository;
 
 import com.company.entity.ClientEntity;
 import com.company.enums.StatusEnum;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +29,6 @@ public interface ClientRepository extends JpaRepository<ClientEntity, String> {
     int update(@Param("name") String name, @Param("surname") String surname, @Param("middlea") String middleName, @Param("id") String cid);
 
     Optional<ClientEntity> findByPhone(String phone);
+
+    Page<ClientEntity> findAllByProfileName(Pageable pageable, String profileName);
 }

@@ -26,9 +26,9 @@ public interface CardRepository extends JpaRepository<CardEntity, String> {
 
 
 
-    List<CardEntity> findByClientIdAndStatus(String cid, StatusEnum active);
+    List<CardEntity> findByClientIdAndStatusOrStatus(String cid, StatusEnum active,StatusEnum active1);
 
-    List<CardEntity> findByPhoneAndStatus(String phone, StatusEnum active);
+    List<CardEntity> findByPhoneAndStatusOrStatus(String phone, StatusEnum active,StatusEnum active1);
 
     @Transactional
     @Modifying

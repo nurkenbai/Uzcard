@@ -4,6 +4,7 @@ import com.company.enums.StatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,5 +17,6 @@ public class CardFilterRequestDTO {
     private Long toBalance;
     private String profileName;
     private StatusEnum status;
-    private LocalDateTime createdDate;
+    private LocalDate toDate;
+    private LocalDate fromDate;
 }

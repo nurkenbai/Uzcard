@@ -30,7 +30,9 @@ public class SpringConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("profile").password("{noop}profilejon").roles("PROFILE")
                 .and()
-                .withUser("bank").password("{noop}bankjon").roles("BANK");
+                .withUser("bank").password("{noop}bankjon").roles("BANK")
+                .and()
+                .withUser("hello").password("{noop}helloword").roles("ADMINGENERAL");
     }
 
     @Override

@@ -18,11 +18,11 @@ Content-Type: application/json
   "name": "Val",
   "surname": "Valov",
   "middleName": "Valvich",
-  "phone": "+998999632355"
+  "phone": "+998999632300"
 }
 
 ### get by id
-GET http://localhost:8080/v1/client/8a8a828480fef62d0180fef9bafc0000
+GET http://167.172.66.39:9091/v1/client/
 Authorization: Basic admin adminjon
 
 ###

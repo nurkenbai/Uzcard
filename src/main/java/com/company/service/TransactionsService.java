@@ -7,9 +7,11 @@ import com.company.dto.response.ClientResponseDTO;
 import com.company.dto.response.TransactionsResponseDTO;
 import com.company.entity.TransactionsEntity;
 import com.company.enums.StatusEnum;
+import com.company.exeption.AppBadRequestException;
 import com.company.mapper.TransactionsMapper;
 import com.company.repository.TransactionsRepository;
 import com.company.repository.custom.TransactionsCustomRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class TransactionsService {
     @Autowired
@@ -32,6 +35,10 @@ public class TransactionsService {
 
     @Transactional
     public TransactionsResponseDTO create(TransactionsRequestDTO requestDTO) {
+        if (requestDTO.getAmount() < 0) {
+            log.warn("The amount is positive");
+            throw new AppBadRequestException("The amount is positive");
+        }
         cardService.get(requestDTO.getFromCardId(), requestDTO.getAmount());
         cardService.get(requestDTO.getToCardId());
 

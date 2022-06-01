@@ -38,12 +38,13 @@ public class CardService {
         String profileName = AuthorizationConfig.getCurrentProfileUserName();
         CardEntity entity = new CardEntity();
         entity.setNumber(getCardNumber());
-        entity.setBalance(requestDTO.getBalance());
+
         entity.setClientId(requestDTO.getClientId());
         entity.setProfileName(profileName);
         LocalDate localDate = LocalDate.now();
         entity.setExpiryDate(localDate.plusYears(3));
         if (requestDTO.getBalance() > 0) {
+            entity.setBalance(requestDTO.getBalance());
             entity.setStatus(StatusEnum.ACTIVE);
         } else {
             entity.setStatus(StatusEnum.BLOCK);
@@ -70,7 +71,8 @@ public class CardService {
 
     public List<CardResponseDTO> getAll() {
         List<CardResponseDTO> responseDTOS = new LinkedList<>();
-        cardRepository.findByStatus(StatusEnum.ACTIVE).forEach(entity -> {
+        cardRepository.findAll().forEach(entity -> {
+            if (entity.getStatus().equals(StatusEnum.ACTIVE)||entity.getStatus().equals(StatusEnum.BLOCK) )
             responseDTOS.add(toDTO(entity));
         });
         return responseDTOS;
@@ -98,7 +100,7 @@ public class CardService {
 
     public List<CardResponseDTO> getByPhoneId(String phone) {
         List<CardResponseDTO> dtoList = new LinkedList<>();
-        cardRepository.findByPhoneAndStatus(phone, StatusEnum.ACTIVE).stream().forEach(entity -> {
+        cardRepository.findByPhoneAndStatusOrStatus(phone, StatusEnum.ACTIVE,StatusEnum.BLOCK).stream().forEach(entity -> {
             dtoList.add(toDTO(entity));
         });
         return dtoList;
@@ -106,7 +108,7 @@ public class CardService {
 
     public List<CardResponseDTO> getByClientId(String cid) {
         List<CardResponseDTO> dtoList = new LinkedList<>();
-        cardRepository.findByClientIdAndStatus(cid, StatusEnum.ACTIVE).stream().forEach(entity -> {
+        cardRepository.findByClientIdAndStatusOrStatus(cid, StatusEnum.ACTIVE,StatusEnum.BLOCK).stream().forEach(entity -> {
             dtoList.add(toDTO(entity));
         });
         return dtoList;
@@ -164,10 +166,12 @@ public class CardService {
         CardResponseDTO responseDTO = new CardResponseDTO();
         responseDTO.setId(entity.getId());
         responseDTO.setNumber(entity.getNumber());
+        responseDTO.setPhone(entity.getPhone());
         responseDTO.setCreatedDate(entity.getCreatedDate());
         responseDTO.setStatus(entity.getStatus());
         responseDTO.setExpiryDate(entity.getExpiryDate());
         responseDTO.setBalance(entity.getBalance());
+        responseDTO.setClientId(entity.getClientId());
         return responseDTO;
     }
 }

@@ -16,8 +16,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -26,10 +28,12 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     public ClientResponseDTO create(ClientRequestDTO requestDTO) {
-        clientRepository.findByPhone(requestDTO.getPhone()).orElseThrow(() -> {
-            log.warn("there is already such a phone");
-            throw new ItemNotFoundException("there is already such a phone");
-        });
+       Optional<ClientEntity> optional = clientRepository.findByPhone(requestDTO.getPhone());
+       if (optional.isPresent()){
+           log.warn("there is already such a phone");
+           throw new ItemNotFoundException("there is already such a phone");
+       }
+
         String profileName = AuthorizationConfig.getCurrentProfileUserName();
         ClientEntity entity = new ClientEntity();
         entity.setName(requestDTO.getName());
@@ -79,6 +83,21 @@ public class ClientService {
 
         return new PageImpl<>(playListDTO, pageable, entityPage.getTotalElements());
     }
+
+    public PageImpl<ClientResponseDTO> paginationListByProfileName(int page, int size, String profileName) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<ClientEntity> entityPage = clientRepository.findAllByProfileName(pageable, profileName);
+
+        List<ClientResponseDTO> dtoList = new ArrayList<>();
+
+        entityPage.forEach(entity -> {
+            dtoList.add(toDTO(entity));
+        });
+
+        return new PageImpl<>(dtoList, pageable, entityPage.getTotalElements());
+    }
+
 
     public Boolean changeStatus(StatusEnum status, String id) {
         int n = clientRepository.changeStatus(status, id);
